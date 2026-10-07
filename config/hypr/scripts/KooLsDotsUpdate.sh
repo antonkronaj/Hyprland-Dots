@@ -128,8 +128,8 @@ if [[ "$highest_version" == "$local_version" ]]; then
 fi
 
 # 4. Update is Available -> Display Window with Current Version, Detected Version, Link, and OK Button
-send_notification "$(get_icon "ja.png")" "Update Available!" "Current: v${local_version} -> Latest: v${remote_version}" "normal"
-echo "Update available: Installed v${local_version} -> Latest v${remote_version}"
+send_notification "$(get_icon "ja.png")" "Upstream Update Available!" "Current: v${local_version} -> Latest (upstream LinuxBeginnings): v${remote_version}" "normal"
+echo "Update available: Installed v${local_version} -> Latest (upstream LinuxBeginnings) v${remote_version}"
 
 # Display dialog window
 show_update_window() {
@@ -140,9 +140,9 @@ show_update_window() {
   if command -v yad >/dev/null 2>&1; then
     local yad_icon
     yad_icon=$(get_icon "ja.png")
-    local yad_text="<b><big>KooL Hyprland Dots Update Available!</big></b>\n\n"
+    local yad_text="<b><big>Upstream KooL Hyprland Dots Update Available!</big></b>\n\n"
     yad_text+="<b>Current installed version:</b> ${cur_v}\n"
-    yad_text+="<b>Most current version detected:</b> ${new_v}\n\n"
+    yad_text+="<b>Latest upstream (LinuxBeginnings) version:</b> ${new_v}\n\n"
     yad_text+="<b>Changelog:</b>\n<a href=\"${CHANGELOG_URL}\">${CHANGELOG_URL}</a>\n"
 
     local ret=0
@@ -167,9 +167,9 @@ show_update_window() {
   if command -v rofi >/dev/null 2>&1; then
     "${XDG_CONFIG_HOME:-$HOME/.config}/hypr/scripts/RofiFocusedWallpaperLink.sh" >/dev/null 2>&1 || true
 
-    local rofi_msg="<b>Update Available for KooL Hyprland Dots!</b>\n\n"
-    rofi_msg+="• Current installed version:      <b>${cur_v}</b>\n"
-    rofi_msg+="• Most current version detected:  <b>${new_v}</b>\n\n"
+    local rofi_msg="<b>Upstream Update Available for KooL Hyprland Dots!</b>\n\n"
+    rofi_msg+="• Current installed version:                <b>${cur_v}</b>\n"
+    rofi_msg+="• Latest upstream (LinuxBeginnings) version: <b>${new_v}</b>\n\n"
     rofi_msg+="Changelog: ${CHANGELOG_URL}"
 
     local opt_changelog="🌐 View Changelog (Opens in Browser)"
@@ -190,7 +190,7 @@ show_update_window() {
   if command -v zenity >/dev/null 2>&1; then
     zenity --info \
       --title="KooL Hyprland Update" \
-      --text="Update available for KooL Hyprland Dots!\n\nCurrent installed version: ${cur_v}\nMost current version detected: ${new_v}\n\nChangelog:\n${CHANGELOG_URL}" \
+      --text="Upstream update available for KooL Hyprland Dots!\n\nCurrent installed version: ${cur_v}\nLatest upstream (LinuxBeginnings) version: ${new_v}\n\nChangelog:\n${CHANGELOG_URL}" \
       --ok-label="OK" 2>/dev/null || true
     return 0
   fi
